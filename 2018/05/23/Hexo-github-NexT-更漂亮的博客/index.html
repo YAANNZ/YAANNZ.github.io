@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="需要的环境 git node hexo NexT  搭建步骤1. 如果电脑没有git、node环境12$ sudo apt-get install git-core   // 安装Git$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js 2. 安装Hexo$ mkdir hexoBlo">
+<meta name="description" content="需要的环境 git node hexo NexT  搭建步骤如果电脑没有git、node环境12$ sudo apt-get install git-core   // 安装Git$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js 安装Hexo$ mkdir hexoBlog$ npm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo+github+NexT &gt; 更漂亮的博客">
 <meta property="og:url" content="http://yoursite.com/2018/05/23/Hexo-github-NexT-更漂亮的博客/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="需要的环境 git node hexo NexT  搭建步骤1. 如果电脑没有git、node环境12$ sudo apt-get install git-core   // 安装Git$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js 2. 安装Hexo$ mkdir hexoBlo">
+<meta property="og:description" content="需要的环境 git node hexo NexT  搭建步骤如果电脑没有git、node环境12$ sudo apt-get install git-core   // 安装Git$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js 安装Hexo$ mkdir hexoBlog$ npm">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-22T16:12:29.906Z">
+<meta property="og:updated_time" content="2018-05-22T16:17:46.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo+github+NexT &gt; 更漂亮的博客">
-<meta name="twitter:description" content="需要的环境 git node hexo NexT  搭建步骤1. 如果电脑没有git、node环境12$ sudo apt-get install git-core   // 安装Git$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js 2. 安装Hexo$ mkdir hexoBlo">
+<meta name="twitter:description" content="需要的环境 git node hexo NexT  搭建步骤如果电脑没有git、node环境12$ sudo apt-get install git-core   // 安装Git$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js 安装Hexo$ mkdir hexoBlog$ npm">
 
 
 
@@ -305,16 +305,16 @@
 <li>hexo</li>
 <li>NexT</li>
 </ul>
-<h5 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h5><h6 id="1-如果电脑没有git、node环境"><a href="#1-如果电脑没有git、node环境" class="headerlink" title="1. 如果电脑没有git、node环境"></a>1. 如果电脑没有git、node环境</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git-core   // 安装Git</span><br><span class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js</span><br></pre></td></tr></table></figure>
-<h6 id="2-安装Hexo"><a href="#2-安装Hexo" class="headerlink" title="2. 安装Hexo"></a>2. 安装Hexo</h6><p>$ mkdir hexoBlog<br>$ npm install hexo-cli -g</p>
-<h6 id="3-初始化Hexo"><a href="#3-初始化Hexo" class="headerlink" title="3. 初始化Hexo"></a>3. 初始化Hexo</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir blog</span><br><span class="line">$ cd blog</span><br><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
-<h6 id="4-生成静态网站"><a href="#4-生成静态网站" class="headerlink" title="4. 生成静态网站"></a>4. 生成静态网站</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g    // Generat</span><br></pre></td></tr></table></figure>
-<h6 id="5-本地启动测试"><a href="#5-本地启动测试" class="headerlink" title="5. 本地启动测试"></a>5. 本地启动测试</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s    // server，打开(http://localhost:4000)进行本地测试</span><br></pre></td></tr></table></figure>
-<h6 id="6-创建GitHub仓库"><a href="#6-创建GitHub仓库" class="headerlink" title="6. 创建GitHub仓库"></a>6. 创建GitHub仓库</h6><p>仓库名称：xxx.github.io    // xxx是GitHub账户名称</p>
-<h6 id="7-配置Hexo"><a href="#7-配置Hexo" class="headerlink" title="7. 配置Hexo"></a>7. 配置Hexo</h6><p>打开根目录的<code>_config.yml</code>文件，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repository: https://github.com/xxx/xxx.github.io.git</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure></p>
-<h6 id="8-安装git部署工具"><a href="#8-安装git部署工具" class="headerlink" title="8. 安装git部署工具"></a>8. 安装git部署工具</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<h6 id="9-部署到GitHub"><a href="#9-部署到GitHub" class="headerlink" title="9. 部署到GitHub"></a>9. 部署到GitHub</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<h6 id="10-绑定域名"><a href="#10-绑定域名" class="headerlink" title="10. 绑定域名"></a>10. 绑定域名</h6><ul>
+<h5 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h5><h6 id="如果电脑没有git、node环境"><a href="#如果电脑没有git、node环境" class="headerlink" title="如果电脑没有git、node环境"></a>如果电脑没有git、node环境</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git-core   // 安装Git</span><br><span class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh   //安装 Node.js</span><br></pre></td></tr></table></figure>
+<h6 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h6><p>$ mkdir hexoBlog<br>$ npm install hexo-cli -g</p>
+<h6 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir blog</span><br><span class="line">$ cd blog</span><br><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<h6 id="生成静态网站"><a href="#生成静态网站" class="headerlink" title="生成静态网站"></a>生成静态网站</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g    // Generat</span><br></pre></td></tr></table></figure>
+<h6 id="本地启动测试"><a href="#本地启动测试" class="headerlink" title="本地启动测试"></a>本地启动测试</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s    // server，打开(http://localhost:4000)进行本地测试</span><br></pre></td></tr></table></figure>
+<h6 id="创建GitHub仓库"><a href="#创建GitHub仓库" class="headerlink" title="创建GitHub仓库"></a>创建GitHub仓库</h6><p>仓库名称：xxx.github.io    // xxx是GitHub账户名称</p>
+<h6 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h6><p>打开根目录的<code>_config.yml</code>文件，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repository: https://github.com/xxx/xxx.github.io.git</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure></p>
+<h6 id="安装git部署工具"><a href="#安装git部署工具" class="headerlink" title="安装git部署工具"></a>安装git部署工具</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h6 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<h6 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h6><ul>
 <li>在根目录下的<code>source</code>文件夹内创建<code>CNAME</code>文件，在文件内写上要绑定的域名。</li>
 <li><p>给域名添加如下2个解析：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主机记录：@    记录类型： A    记录值：192.30.252.153     TTL： 10分钟</span><br><span class="line">主机记录：www  记录类型： A    记录值：192.30.252.154     TTL： 10分钟</span><br></pre></td></tr></table></figure>
@@ -323,7 +323,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h6 id="11-安装NexT"><a href="#11-安装NexT" class="headerlink" title="11. 安装NexT"></a>11. 安装NexT</h6><ul>
+<h6 id="安装NexT"><a href="#安装NexT" class="headerlink" title="安装NexT"></a>安装NexT</h6><ul>
 <li><p>安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
 </li>
@@ -336,7 +336,7 @@
 <li><p>Tips<br>切换主题之后验证之前可以清除hexo缓存：<code>$ hexo clean</code>，或者清除浏览器缓存。</p>
 </li>
 </ul>
-<h6 id="12-发布文章"><a href="#12-发布文章" class="headerlink" title="12. 发布文章"></a>12. 发布文章</h6><pre><code>$ hexo new [layout] &quot;post-name&quot;
+<h6 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h6><pre><code>$ hexo new [layout] &quot;post-name&quot;
 $ hexo g    // 生成静态文件。
 $ hexo s    // 在本地预览效果。
 $ hexo d    // 同步到github。
@@ -486,7 +486,7 @@ $ hexo d    // 同步到github。
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#需要的环境"><span class="nav-number">1.</span> <span class="nav-text">需要的环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搭建步骤"><span class="nav-number">2.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-如果电脑没有git、node环境"><span class="nav-number">2.1.</span> <span class="nav-text">1. 如果电脑没有git、node环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-安装Hexo"><span class="nav-number">2.2.</span> <span class="nav-text">2. 安装Hexo</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-初始化Hexo"><span class="nav-number">2.3.</span> <span class="nav-text">3. 初始化Hexo</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-生成静态网站"><span class="nav-number">2.4.</span> <span class="nav-text">4. 生成静态网站</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-本地启动测试"><span class="nav-number">2.5.</span> <span class="nav-text">5. 本地启动测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-创建GitHub仓库"><span class="nav-number">2.6.</span> <span class="nav-text">6. 创建GitHub仓库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-配置Hexo"><span class="nav-number">2.7.</span> <span class="nav-text">7. 配置Hexo</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8-安装git部署工具"><span class="nav-number">2.8.</span> <span class="nav-text">8. 安装git部署工具</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#9-部署到GitHub"><span class="nav-number">2.9.</span> <span class="nav-text">9. 部署到GitHub</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#10-绑定域名"><span class="nav-number">2.10.</span> <span class="nav-text">10. 绑定域名</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#11-安装NexT"><span class="nav-number">2.11.</span> <span class="nav-text">11. 安装NexT</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#12-发布文章"><span class="nav-number">2.12.</span> <span class="nav-text">12. 发布文章</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#需要的环境"><span class="nav-number">1.</span> <span class="nav-text">需要的环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搭建步骤"><span class="nav-number">2.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#如果电脑没有git、node环境"><span class="nav-number">2.1.</span> <span class="nav-text">如果电脑没有git、node环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装Hexo"><span class="nav-number">2.2.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#初始化Hexo"><span class="nav-number">2.3.</span> <span class="nav-text">初始化Hexo</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#生成静态网站"><span class="nav-number">2.4.</span> <span class="nav-text">生成静态网站</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地启动测试"><span class="nav-number">2.5.</span> <span class="nav-text">本地启动测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#创建GitHub仓库"><span class="nav-number">2.6.</span> <span class="nav-text">创建GitHub仓库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#配置Hexo"><span class="nav-number">2.7.</span> <span class="nav-text">配置Hexo</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装git部署工具"><span class="nav-number">2.8.</span> <span class="nav-text">安装git部署工具</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#部署到GitHub"><span class="nav-number">2.9.</span> <span class="nav-text">部署到GitHub</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#绑定域名"><span class="nav-number">2.10.</span> <span class="nav-text">绑定域名</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装NexT"><span class="nav-number">2.11.</span> <span class="nav-text">安装NexT</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#发布文章"><span class="nav-number">2.12.</span> <span class="nav-text">发布文章</span></a></li></ol></li></ol></div>
             
 
           </div>
