@@ -328,20 +328,14 @@
 <li><p>安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>本地测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s -debug</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Tips<br>切换主题之后验证之前可以清除hexo缓存：<code>$ hexo clean</code>，或者清除浏览器缓存。</p>
+<li><p>启用<br>打开根目录的_config.yml文件，如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ theme: next</span><br><span class="line">``` </span><br><span class="line">* 本地测试</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h6 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h6><pre><code>$ hexo new [layout] &quot;post-name&quot;
-$ hexo g    // 生成静态文件。
-$ hexo s    // 在本地预览效果。
-$ hexo d    // 同步到github。
-</code></pre>
+<p>$ hexo s -debug<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 部署</span><br></pre></td></tr></table></figure></p>
+<p>$ hexo g<br>$ hexo d<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* Tips</span><br><span class="line">切换主题之后验证之前可以清除hexo缓存：`$ hexo clean`，或者清除浏览器缓存。</span><br><span class="line"></span><br><span class="line">###### 发布文章</span><br></pre></td></tr></table></figure></p>
+<p>$ hexo new [layout] “post-name”<br>$ hexo g    // 生成静态文件。<br>$ hexo s    // 在本地预览效果。<br>$ hexo d    // 同步到github。<br><code>`</code> </p>
+
           
         
       
@@ -504,6 +498,197 @@ $ hexo d    // 同步到github。
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="朱亚男">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/02/shell脚本实现自动化打包发布/" itemprop="url">shell脚本实现自动化打包发布</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-02T16:53:48+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h5><ul>
+<li><strong>update</strong>代码</li>
+<li>编译打包<strong>app</strong></li>
+<li>上传到<strong>fir.im</strong></li>
+</ul>
+<h5 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h5><ul>
+<li><p>更新代码</p>
+<blockquote>
+<p><code>cd /Users/xxx/xxx.xcworkspace</code><br><code>git pull</code></p>
+</blockquote>
+</li>
+<li><p>xcodebuild打包Archive文件</p>
+<blockquote>
+<p><code>xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=iOS archive -configuration Release ONLY_ACTIVE_ARCH=NO  -archivePath ${export path *.xcarichive}</code></p>
+<ul>
+<li>-workspace 对应<code>xxx.xcworkspace</code></li>
+<li>-scheme 对应 project的<code>scheme</code></li>
+<li>-configuration 对应<code>Debug、Release</code></li>
+<li>-archivePath 对应生成<code>xxx.xcarichive</code>的路径</li>
+</ul>
+</blockquote>
+</li>
+<li><p>导出ipa</p>
+<blockquote>
+<p><code>xcodebuild -exportArchive -archivePath ${path to *.xcarchive} -exportPath ${export path to dir} -exportOptionsPlist ${path to export options *.plist}</code></p>
+<ul>
+<li>-archivePath 对应<code>xxx.xcarchive</code>的路径</li>
+<li>-exportPath 对应生成的<code>ipa</code>的路径</li>
+<li>-exportOptionsPlist 对应导出<code>plist</code>格式的配置文件</li>
+</ul>
+</blockquote>
+</li>
+<li><p>上传到fir</p>
+<blockquote>
+<p><code>fir login -T ${API token}</code><br><code>fir publish ${path to xxx.ipa}</code></p>
+</blockquote>
+</li>
+<li><p>测试机打开自用AppStore更新最新版<br><img src="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="appstore.png"></p>
+</li>
+</ul>
+<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><ul>
+<li>查看project信息：<code>xcodebuild -list</code></li>
+<li>project需要设置<code>Signing</code>为<code>Automatically manage signing</code></li>
+<li><p>exportOptionPlist: 新建一个plist文件, 里面是一个Dictionary, key-value如下, 都是可选值, 不需要全部填上 :</p>
+<blockquote>
+<ol>
+<li><p>compileBitcode: Bool<br>For non-App Store exports, should Xcode re-compile the app from bitcode? Defaults to YES.</p>
+</li>
+<li><p>embedOnDemandResourcesAssetPacksInBundle : Bool<br>For non-App Store exports, if the app uses On Demand Resources and this is YES, asset packs are embedded in the app bundle so that the app can be tested without a server to host asset packs. Defaults to YES unless onDemandResourcesAssetPacksBaseURL is specified.</p>
+</li>
+<li><p>iCloudContainerEnvironment<br>For non-App Store exports, if the app is using CloudKit, this configures the “com.apple.developer.icloud-container-environment” entitlement. Available options: Development and Production. Defaults to Development.</p>
+</li>
+<li><p>manifest : Dictionary<br>For non-App Store exports, users can download your app over the web by opening your distribution manifest file in a web browser. To generate a distribution manifest, the value of this key should be a dictionary with three sub-keys: appURL, displayImageURL, fullSizeImageURL. The additional sub-key assetPackManifestURL is required when using on demand resources.</p>
+</li>
+<li><p>method : String<br>Describes how Xcode should export the archive. Available options: app-store, ad-hoc, package, enterprise, development, and developer-id. The list of options varies based on the type of archive. Defaults to development.</p>
+</li>
+<li><p>onDemandResourcesAssetPacksBaseURL : String<br>For non-App Store exports, if the app uses On Demand Resources and embedOnDemandResourcesAssetPacksInBundle isn’t YES, this should be a base URL specifying where asset packs are going to be hosted. This configures the app to download asset packs from the specified URL.</p>
+</li>
+<li><p>teamID : String<br>The Developer Portal team to use for this export. Defaults to the team used to build the archive.</p>
+</li>
+<li><p>thinning : String<br>For non-App Store exports, should Xcode thin the package for one or more device variants? Available options: (Xcode produces a non-thinned universal app), (Xcode produces a universal app and all available thinned variants), or a model identifier for a specific device (e.g. “iPhone7,1”). Defaults to .</p>
+</li>
+<li><p>uploadBitcode : Bool<br>For App Store exports, should the package include bitcode? Defaults to YES.</p>
+</li>
+<li><p>uploadSymbols : Bool<br>For App Store exports, should the package include symbols? Defaults to YES.</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>github地址：<a href="https://github.com/YAANNZ/AutoPackage-ipa" target="_blank" rel="noopener">YAANNZ</a></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -550,7 +735,7 @@ $ hexo d    // 同步到github。
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

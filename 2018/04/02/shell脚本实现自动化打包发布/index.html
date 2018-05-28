@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="要实现的功能 update代码 编译打包app 上传到fir.im  命令 更新代码  cd /Users/xxx/xxx.xcworkspacegit pull   xcodebuild打包Archive文件  xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platfor">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/05/22/hello-world/index.html">
+<meta property="og:title" content="shell脚本实现自动化打包发布">
+<meta property="og:url" content="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/index.html">
 <meta property="og:site_name" content="Sherlock">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  命令 更新代码  cd /Users/xxx/xxx.xcworkspacegit pull   xcodebuild打包Archive文件  xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platfor">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-22T06:59:27.651Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-28T08:55:42.271Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="shell脚本实现自动化打包发布">
+<meta name="twitter:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  命令 更新代码  cd /Users/xxx/xxx.xcworkspacegit pull   xcodebuild打包Archive文件  xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platfor">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/22/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/"/>
 
 
 
 
 
-  <title>Hello World | Sherlock</title>
+  <title>shell脚本实现自动化打包发布 | Sherlock</title>
   
 
 
@@ -232,7 +234,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="朱亚男">
@@ -249,7 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">shell脚本实现自动化打包发布</h1>
         
 
         <div class="post-meta">
@@ -261,8 +263,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-22T14:59:27+08:00">
-                2018-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-02T16:53:48+08:00">
+                2018-04-02
               </time>
             
 
@@ -299,15 +301,78 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h5 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h5><ul>
+<li><strong>update</strong>代码</li>
+<li>编译打包<strong>app</strong></li>
+<li>上传到<strong>fir.im</strong></li>
+</ul>
+<h5 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h5><ul>
+<li><p>更新代码</p>
+<blockquote>
+<p><code>cd /Users/xxx/xxx.xcworkspace</code><br><code>git pull</code></p>
+</blockquote>
+</li>
+<li><p>xcodebuild打包Archive文件</p>
+<blockquote>
+<p><code>xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=iOS archive -configuration Release ONLY_ACTIVE_ARCH=NO  -archivePath ${export path *.xcarichive}</code></p>
+<ul>
+<li>-workspace 对应<code>xxx.xcworkspace</code></li>
+<li>-scheme 对应 project的<code>scheme</code></li>
+<li>-configuration 对应<code>Debug、Release</code></li>
+<li>-archivePath 对应生成<code>xxx.xcarichive</code>的路径</li>
+</ul>
+</blockquote>
+</li>
+<li><p>导出ipa</p>
+<blockquote>
+<p><code>xcodebuild -exportArchive -archivePath ${path to *.xcarchive} -exportPath ${export path to dir} -exportOptionsPlist ${path to export options *.plist}</code></p>
+<ul>
+<li>-archivePath 对应<code>xxx.xcarchive</code>的路径</li>
+<li>-exportPath 对应生成的<code>ipa</code>的路径</li>
+<li>-exportOptionsPlist 对应导出<code>plist</code>格式的配置文件</li>
+</ul>
+</blockquote>
+</li>
+<li><p>上传到fir</p>
+<blockquote>
+<p><code>fir login -T ${API token}</code><br><code>fir publish ${path to xxx.ipa}</code></p>
+</blockquote>
+</li>
+<li><p>测试机打开自用AppStore更新最新版<br><img src="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="appstore.png"></p>
+</li>
+</ul>
+<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><ul>
+<li>查看project信息：<code>xcodebuild -list</code></li>
+<li>project需要设置<code>Signing</code>为<code>Automatically manage signing</code></li>
+<li><p>exportOptionPlist: 新建一个plist文件, 里面是一个Dictionary, key-value如下, 都是可选值, 不需要全部填上 :</p>
+<blockquote>
+<ol>
+<li><p>compileBitcode: Bool<br>For non-App Store exports, should Xcode re-compile the app from bitcode? Defaults to YES.</p>
+</li>
+<li><p>embedOnDemandResourcesAssetPacksInBundle : Bool<br>For non-App Store exports, if the app uses On Demand Resources and this is YES, asset packs are embedded in the app bundle so that the app can be tested without a server to host asset packs. Defaults to YES unless onDemandResourcesAssetPacksBaseURL is specified.</p>
+</li>
+<li><p>iCloudContainerEnvironment<br>For non-App Store exports, if the app is using CloudKit, this configures the “com.apple.developer.icloud-container-environment” entitlement. Available options: Development and Production. Defaults to Development.</p>
+</li>
+<li><p>manifest : Dictionary<br>For non-App Store exports, users can download your app over the web by opening your distribution manifest file in a web browser. To generate a distribution manifest, the value of this key should be a dictionary with three sub-keys: appURL, displayImageURL, fullSizeImageURL. The additional sub-key assetPackManifestURL is required when using on demand resources.</p>
+</li>
+<li><p>method : String<br>Describes how Xcode should export the archive. Available options: app-store, ad-hoc, package, enterprise, development, and developer-id. The list of options varies based on the type of archive. Defaults to development.</p>
+</li>
+<li><p>onDemandResourcesAssetPacksBaseURL : String<br>For non-App Store exports, if the app uses On Demand Resources and embedOnDemandResourcesAssetPacksInBundle isn’t YES, this should be a base URL specifying where asset packs are going to be hosted. This configures the app to download asset packs from the specified URL.</p>
+</li>
+<li><p>teamID : String<br>The Developer Portal team to use for this export. Defaults to the team used to build the archive.</p>
+</li>
+<li><p>thinning : String<br>For non-App Store exports, should Xcode thin the package for one or more device variants? Available options: (Xcode produces a non-thinned universal app), (Xcode produces a universal app and all available thinned variants), or a model identifier for a specific device (e.g. “iPhone7,1”). Defaults to .</p>
+</li>
+<li><p>uploadBitcode : Bool<br>For App Store exports, should the package include bitcode? Defaults to YES.</p>
+</li>
+<li><p>uploadSymbols : Bool<br>For App Store exports, should the package include symbols? Defaults to YES.</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>github地址：<a href="https://github.com/YAANNZ/AutoPackage-ipa" target="_blank" rel="noopener">YAANNZ</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -332,18 +397,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/02/shell脚本实现自动化打包发布/" rel="next" title="shell脚本实现自动化打包发布">
-                <i class="fa fa-chevron-left"></i> shell脚本实现自动化打包发布
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/23/Hexo-github-NexT-更漂亮的博客/" rel="prev" title="Hexo+github+NexT > 更漂亮的博客">
-                Hexo+github+NexT > 更漂亮的博客 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/22/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -458,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#要实现的功能"><span class="nav-number">1.</span> <span class="nav-text">要实现的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令"><span class="nav-number">2.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
             
 
           </div>
