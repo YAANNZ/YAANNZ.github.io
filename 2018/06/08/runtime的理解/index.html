@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="主要内容 runtime 是什么 runtime 的消息机制  是什么　　OC 是在C语言的基础上进行的扩展和封装。对于C语言，调用未实现的函数在编译阶段就会报错，而对于OC语言，调用的只要是声明过的函数，在编译阶段不会报错，在运行阶段才会报错。这就是OC的动态性的一个体现，并且C语言是面向过程的语言，而OC是面向对象的编程语言，OC对C语言的这些扩展的核心就是 runtime。　　runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="runtime的理解（一）">
+<meta property="og:url" content="http://yoursite.com/2018/06/08/runtime的理解/index.html">
+<meta property="og:site_name" content="Sherlock">
+<meta property="og:description" content="主要内容 runtime 是什么 runtime 的消息机制  是什么　　OC 是在C语言的基础上进行的扩展和封装。对于C语言，调用未实现的函数在编译阶段就会报错，而对于OC语言，调用的只要是声明过的函数，在编译阶段不会报错，在运行阶段才会报错。这就是OC的动态性的一个体现，并且C语言是面向过程的语言，而OC是面向对象的编程语言，OC对C语言的这些扩展的核心就是 runtime。　　runtime">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/runtime的理解/msg_send.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/runtime的理解/methodTypes.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/runtime的理解/msg_resolve.png">
+<meta property="og:updated_time" content="2018-06-13T14:11:30.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="runtime的理解（一）">
+<meta name="twitter:description" content="主要内容 runtime 是什么 runtime 的消息机制  是什么　　OC 是在C语言的基础上进行的扩展和封装。对于C语言，调用未实现的函数在编译阶段就会报错，而对于OC语言，调用的只要是声明过的函数，在编译阶段不会报错，在运行阶段才会报错。这就是OC的动态性的一个体现，并且C语言是面向过程的语言，而OC是面向对象的编程语言，OC对C语言的这些扩展的核心就是 runtime。　　runtime">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/08/runtime的理解/msg_send.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/08/runtime的理解/"/>
+
+
+
+
+
+  <title>runtime的理解（一） | Sherlock</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sherlock</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/runtime的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sherlock">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">runtime的理解（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-08T09:34:30+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
+<li>runtime 是什么</li>
+<li>runtime 的消息机制</li>
+</ul>
+<h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p><em>　　</em>OC 是在C语言的基础上进行的扩展和封装。对于C语言，调用未实现的函数在编译阶段就会报错，而对于OC语言，调用的只要是声明过的函数，在编译阶段不会报错，在运行阶段才会报错。这就是OC的动态性的一个体现，并且C语言是面向过程的语言，而OC是面向对象的编程语言，OC对C语言的这些扩展的核心就是 runtime。<br><em>　　</em>runtime 简称运行时，主要由C和汇编编写，是OC面向对象和动态机制的基础，其的核心是 <strong>消息机制</strong>。在使用的过程中，我们可以参考<a href="https://link.juejin.im?target=https%3A%2F%2Fdeveloper.apple.com%2Freference%2Fobjectivec%2Fobjective_c_runtime%23%2F%2Fapple_ref%2Fdoc%2Fuid%2FTP40001418-CH1g-126286" target="_blank" rel="noopener">官方Api</a>。<br><a id="more"></a></p>
+<h2 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h2><h4 id="objc-class"><a href="#objc-class" class="headerlink" title="objc_class"></a>objc_class</h4><p><em>　　</em>Cocoa Touch 中几乎所有的类中都继承自 NSObject 类（另一个是 NSProxy 类），在 NSObjcet 中存在一个 Class 的 isa 指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_class *Class;</span><br><span class="line">@interface NSObject &lt;NSObject&gt; &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>　　</em>Objective-C 的类也是由 Class 类型来表示的，它实际上是一个指向 objc_class 结构体的指针。查看 objc/runtime.h 中 <strong>objc_class</strong> 结构体的定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class isa; // 指向metaclass</span><br><span class="line"></span><br><span class="line">    Class super_class ; // 指向其父类</span><br><span class="line">    const char *name ; // 类名</span><br><span class="line">    long version ; // 类的版本信息，初始化默认为0，可以通过runtime函数class_setVersion和class_getVersion进行修改、读取</span><br><span class="line">    long info; // 一些标识信息,如CLS_CLASS (0x1L) 表示该类为普通 class ，其中包含对象方法和成员变量;CLS_META (0x2L) 表示该类为 metaclass，其中包含类方法;</span><br><span class="line">    long instance_size ; // 该类的实例变量大小(包括从父类继承下来的实例变量);</span><br><span class="line">    struct objc_ivar_list *ivars; // 用于存储每个成员变量的地址</span><br><span class="line">    struct objc_method_list **methodLists ; // 与 info 的一些标志位有关,如CLS_CLASS (0x1L),则存储对象方法，如CLS_META (0x2L)，则存储类方法;</span><br><span class="line">    struct objc_cache *cache; // 指向最近使用的方法的指针，用于提升效率；</span><br><span class="line">    struct objc_protocol_list *protocols; // 存储该类遵守的协议</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法选择器"><a href="#方法选择器" class="headerlink" title="方法选择器"></a>方法选择器</h4><p><em>　　**</em>@selector (SEL)<strong>：是一个SEL方法选择器。</strong>SEL** 其主要作用是快速的通过方法名字查找到对应方法的函数指针，然后调用其函数。SEL其本身是一个Int类型的地址，地址中存放着方法的名字。一个方法对应着一个SEL，所以一个类中不能存在2个名称相同的方法。</p>
+<h4 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h4><p><em>　　</em>例如执行代码： <code>[person eat];</code> ，底层就是调用 <code>[person performSelector:@selector(eat)];</code> 方法，然后编译器再将代码转化为<code>objc_msgSend(person, @selector(eat));</code>。</p>
+<ol>
+<li>在 objc_msgSend 函数中。首先通过 person 的isa指针找到 person 对应的 Class。在 class 中先去 cache 中通过 SEL 查找对应函数 method，如果找到则通过 method 中的函数指针跳转到对应的函数中去执行。</li>
+<li>若 cache 中未找到。再去 methodList 中查找。若能找到，则将method加入到cache中，以方便下次查找，并通过method中的函数指针跳转到对应的函数中去执行。</li>
+<li>若 methodlist 中未找到，则去 superClass 中查找。若能找到，则将 method 加入到 cache 中，以方便下次查找，并通过method中的函数指针跳转到对应的函数中去执行。若依然未找到，就要消息转发。</li>
+</ol>
+<p><img src="./msg_send.png" width="500" alt="消息传递" align="center"></p>
+<h4 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h4><p><em>　　</em>消息转发包含动态方法解析、备用接收者、完整消息转发三部分，也是程序报错前最后的三次机会。</p>
+<ol>
+<li>动态方法解析<br><em>　　</em>在消息传递到根类仍然找不到方法的时候，消息转发，调用 <code>+resolveInstanceMethod:</code> 或者 <code>+resolveClassMethod:</code> 方法。重写此方法，并利用 <code>class_addMethod(Class _Nullable cls, SEL _Nonnull name, IMP _Nonnull imp,
+const char * _Nullable types)</code>  方法来添加新的方法接受消息。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (void)testDynamicMethod</span><br><span class="line">&#123;</span><br><span class="line">    [self performSelector:@selector(justTest:) withObject:@&quot;testStr&quot;];</span><br><span class="line">    //    [DITRuntimeViewController performSelector:@selector(justClassTest:) withObject:@&quot;classTestStr&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel</span><br><span class="line">&#123;</span><br><span class="line">    if (sel == @selector(justTest:))</span><br><span class="line">    &#123;</span><br><span class="line">    class_addMethod([self class], sel, (IMP)justTestMethod, &quot;v@:@&quot;);</span><br><span class="line">    return YES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void justTestMethod(id self, SEL _cmd, id str) &#123;</span><br><span class="line">    NSLog(@&quot;%@的%@方法动态实现了，参数为：%@&quot;, self, NSStringFromSelector(_cmd), str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><em>　　</em>关于 <code>class_addMethod(Class _Nullable cls, SEL _Nonnull name, IMP _Nonnull imp,
+const char * _Nullable types)</code> 方法，四个参数代表的意思，<strong>cls</strong> : 表示给哪个类添加方法，这里是指当前控制器；<strong>SEL name</strong>: 表示要添加方法的 sel，即是传进来的参数 sel。<strong>IMP imp</strong> : 表示要添加的方法的实现，方法名可与未找到的方法的名字（sel）相同，方法的实现默认带有两个隐式参数， <em>self</em> : 方法调用者 <em>_cmd</em> : 调用方法的 SEL。<strong>types</strong> : 表示方法类型，需要用特定符号，系统提供的例子中使用的是<strong>“v@:”</strong>，各符号所代表的类型如下图：<br><img src="./methodTypes.png" width="500" alt="methodTypes" align="center"></p>
+<ol start="2">
+<li><p>备用接收者<br><em>　　</em>在调用 <code>+resolveInstanceMethod: 或者 +resolveClassMethod:</code> 方法返回NO的时候，就会调用 <code>- forwardingTargetForSelector:</code> 方法，重写此方法，返回备用接收者即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 备用接受者</span><br><span class="line">- (void)testForwardingReceiver</span><br><span class="line">&#123;</span><br><span class="line">    [self performSelector:@selector(justTestForwarding:) withObject:@&quot;testStr&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector</span><br><span class="line">&#123;</span><br><span class="line">    if (aSelector == @selector(justTestForwarding:))</span><br><span class="line">    &#123;</span><br><span class="line">        return [[DITForwardingTest alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [super forwardingTargetForSelector:aSelector];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完整消息转发<br><em>　　</em>在调用 <code>- forwardingTargetForSelector:</code> 方法返回 nil 的时候，就会启用完整的消息转发机制。首先它会发送 <code>-methodSignatureForSelector:</code> 消息获得函数的参数和返回值类型。如果 <code>-methodSignatureForSelector:</code> 返回nil ，runtime 则会发出 <code>-doesNotRecognizeSelector:</code> 消息，程序报 unrecognized selector 错。如果返回了一个函数签名，runtime 就会创建一个 NSInvocation 对象并发送 <code>-forwardInvocation:</code> 消息给目标对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 完整消息转发</span><br><span class="line">- (void)testMethodSignature</span><br><span class="line">&#123;</span><br><span class="line">    [self performSelector:@selector(justTestMethodSignature:) withObject:@&quot;testMethodSignatureStr&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</span><br><span class="line">&#123;</span><br><span class="line">    if (aSelector == @selector(justTestMethodSignature:))</span><br><span class="line">    &#123;</span><br><span class="line">        return [NSMethodSignature signatureWithObjCTypes:&quot;v@:&quot;];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [super methodSignatureForSelector:aSelector];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)forwardInvocation:(NSInvocation *)anInvocation</span><br><span class="line">&#123;</span><br><span class="line">    SEL sel = anInvocation.selector;</span><br><span class="line">    DITForwardingTest *methodSignatureTest = [[DITForwardingTest alloc] init];</span><br><span class="line"></span><br><span class="line">    if ([methodSignatureTest respondsToSelector:sel])</span><br><span class="line">    &#123;</span><br><span class="line">        [anInvocation invokeWithTarget:methodSignatureTest];</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        [anInvocation doesNotRecognizeSelector:sel];</span><br><span class="line">//        [super forwardInvocation:anInvocation];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>消息转发流程<br><img src="./msg_resolve.png" width="800" alt="消息转发流程" align="center"></p>
+</li>
+</ol>
+<h4 id="Demo地址：Github"><a href="#Demo地址：Github" class="headerlink" title="Demo地址：Github"></a>Demo地址：<a href="https://github.com/YAANNZ/DiTing" target="_blank" rel="noopener">Github</a></h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/07/App内搭建HTTP服务/" rel="next" title="App内搭建HTTP服务">
+                <i class="fa fa-chevron-left"></i> App内搭建HTTP服务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/08/Cocoa/" rel="prev" title="What Is Cocoa ?">
+                What Is Cocoa ? <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="Sherlock" />
+            
+              <p class="site-author-name" itemprop="name">Sherlock</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YAANNZ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ynzhuw@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/2995680944" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9867373/朱亚男" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要内容"><span class="nav-number">1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#是什么"><span class="nav-number">2.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息机制"><span class="nav-number">3.</span> <span class="nav-text">消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#objc-class"><span class="nav-number">3.0.1.</span> <span class="nav-text">objc_class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法选择器"><span class="nav-number">3.0.2.</span> <span class="nav-text">方法选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息传递"><span class="nav-number">3.0.3.</span> <span class="nav-text">消息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息转发"><span class="nav-number">3.0.4.</span> <span class="nav-text">消息转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo地址：Github"><span class="nav-number">3.0.5.</span> <span class="nav-text">Demo地址：Github</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sherlock</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
