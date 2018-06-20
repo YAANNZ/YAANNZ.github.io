@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="主要内容 利用 runtime 交换方法 利用 runtime 动态添加方法 利用 runtime 动态添加属性 利用 runtime 字典转模型  交换方法　　交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功能。注：ditImangeNamed: 的方法实现里不要再掉用 imageN">
+<meta name="description" content="主要内容 利用 runtime 交换方法 利用 runtime 动态添加方法 利用 runtime 动态添加属性 利用 runtime 字典转模型 KVO实现 JSPatch的实现 实现NSCoding的自动归档和自动解档  交换方法　　交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功">
 <meta property="og:type" content="article">
 <meta property="og:title" content="runtime的理解（二）">
 <meta property="og:url" content="http://yoursite.com/2018/06/14/runtime的理解二/index.html">
 <meta property="og:site_name" content="Sherlock">
-<meta property="og:description" content="主要内容 利用 runtime 交换方法 利用 runtime 动态添加方法 利用 runtime 动态添加属性 利用 runtime 字典转模型  交换方法　　交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功能。注：ditImangeNamed: 的方法实现里不要再掉用 imageN">
+<meta property="og:description" content="主要内容 利用 runtime 交换方法 利用 runtime 动态添加方法 利用 runtime 动态添加属性 利用 runtime 字典转模型 KVO实现 JSPatch的实现 实现NSCoding的自动归档和自动解档  交换方法　　交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-14T15:23:59.514Z">
+<meta property="og:updated_time" content="2018-06-14T15:28:55.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="runtime的理解（二）">
-<meta name="twitter:description" content="主要内容 利用 runtime 交换方法 利用 runtime 动态添加方法 利用 runtime 动态添加属性 利用 runtime 字典转模型  交换方法　　交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功能。注：ditImangeNamed: 的方法实现里不要再掉用 imageN">
+<meta name="twitter:description" content="主要内容 利用 runtime 交换方法 利用 runtime 动态添加方法 利用 runtime 动态添加属性 利用 runtime 字典转模型 KVO实现 JSPatch的实现 实现NSCoding的自动归档和自动解档  交换方法　　交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功">
 
 
 
@@ -346,6 +346,9 @@
 <li>利用 runtime 动态添加方法</li>
 <li>利用 runtime 动态添加属性</li>
 <li>利用 runtime 字典转模型</li>
+<li>KVO实现</li>
+<li>JSPatch的实现</li>
+<li>实现NSCoding的自动归档和自动解档</li>
 </ul>
 <h2 id="交换方法"><a href="#交换方法" class="headerlink" title="交换方法"></a>交换方法</h2><p><em>　　</em>交换自定义方法 ditImangeNamed: 和系统方法 imageNamed: 的implementation。可以在不大量修改项目代码的情况下，添加所需的功能。注：ditImangeNamed: 的方法实现里不要再掉用 imageNamed:  方法，否则会引起循环引用。<br><a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@implementation UIImage (DITImage)</span><br><span class="line"></span><br><span class="line">+ (nullable UIImage *)ditImangeNamed:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">    UIImage *image = [UIImage ditImangeNamed:name];</span><br><span class="line">    if (!image)</span><br><span class="line">    &#123;</span><br><span class="line">        NSLog(@&quot;资源图片不存在&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)load</span><br><span class="line">&#123;</span><br><span class="line">    Method imageNamedMethod = class_getClassMethod([UIImage class], @selector(imageNamed:));</span><br><span class="line">    Method ditImageNamedMethod = class_getClassMethod([UIImage class], @selector(ditImangeNamed:));</span><br><span class="line">    method_exchangeImplementations(imageNamedMethod, ditImageNamedMethod);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -410,6 +413,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/20/从零开始搭建一个Node服务/" rel="prev" title="从零开始搭建一个Node服务">
+                从零开始搭建一个Node服务 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -490,7 +497,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -501,7 +508,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
