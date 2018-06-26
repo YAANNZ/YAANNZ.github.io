@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="要实现的功能 update代码 编译打包app 上传到fir.im  命令 更新代码  cd /Users/xxx/xxx.xcworkspacegit pull   xcodebuild打包Archive文件  xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platfor">
+<meta name="description" content="要实现的功能 update代码 编译打包app 上传到fir.im  实现步骤更新代码 cd /Users/xxx/xxx.xcworkspacegit pull  xcodebuild打包Archive文件 xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell脚本实现自动化打包发布">
 <meta property="og:url" content="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/index.html">
 <meta property="og:site_name" content="Sherlock">
-<meta property="og:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  命令 更新代码  cd /Users/xxx/xxx.xcworkspacegit pull   xcodebuild打包Archive文件  xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platfor">
+<meta property="og:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  实现步骤更新代码 cd /Users/xxx/xxx.xcworkspacegit pull  xcodebuild打包Archive文件 xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-06-05T15:04:18.302Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/appstore.jpeg">
+<meta property="og:updated_time" content="2018-06-26T02:04:26.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell脚本实现自动化打包发布">
-<meta name="twitter:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  命令 更新代码  cd /Users/xxx/xxx.xcworkspacegit pull   xcodebuild打包Archive文件  xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platfor">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  实现步骤更新代码 cd /Users/xxx/xxx.xcworkspacegit pull  xcodebuild打包Archive文件 xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/appstore.jpeg">
 
 
 
@@ -343,19 +343,15 @@
       
 
       
-        <h3 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h3><ul>
+        <h2 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h2><ul>
 <li><strong>update</strong>代码</li>
 <li>编译打包<strong>app</strong></li>
 <li>上传到<strong>fir.im</strong></li>
 </ul>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
-<li><p>更新代码</p>
-<blockquote>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="更新代码"><a href="#更新代码" class="headerlink" title="更新代码"></a>更新代码</h3><blockquote>
 <p><code>cd /Users/xxx/xxx.xcworkspace</code><br><code>git pull</code></p>
 </blockquote>
-</li>
-<li><p>xcodebuild打包Archive文件</p>
-<blockquote>
+<h3 id="xcodebuild打包Archive文件"><a href="#xcodebuild打包Archive文件" class="headerlink" title="xcodebuild打包Archive文件"></a>xcodebuild打包Archive文件</h3><blockquote>
 <p><code>xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=iOS archive -configuration Release ONLY_ACTIVE_ARCH=NO  -archivePath ${export path *.xcarichive}</code></p>
 <ul>
 <li>-workspace 对应<code>xxx.xcworkspace</code></li>
@@ -364,9 +360,7 @@
 <li>-archivePath 对应生成<code>xxx.xcarichive</code>的路径</li>
 </ul>
 </blockquote>
-</li>
-<li><p>导出ipa</p>
-<blockquote>
+<h3 id="导出ipa"><a href="#导出ipa" class="headerlink" title="导出ipa"></a>导出ipa</h3><blockquote>
 <p><code>xcodebuild -exportArchive -archivePath ${path to *.xcarchive} -exportPath ${export path to dir} -exportOptionsPlist ${path to export options *.plist}</code></p>
 <ul>
 <li>-archivePath 对应<code>xxx.xcarchive</code>的路径</li>
@@ -374,19 +368,15 @@
 <li>-exportOptionsPlist 对应导出<code>plist</code>格式的配置文件</li>
 </ul>
 </blockquote>
-</li>
-</ul>
 <a id="more"></a>
-<ul>
-<li><p>上传到fir</p>
-<blockquote>
+<h3 id="上传到fir"><a href="#上传到fir" class="headerlink" title="上传到fir"></a>上传到fir</h3><blockquote>
 <p><code>fir login -T ${API token}</code><br><code>fir publish ${path to xxx.ipa}</code></p>
 </blockquote>
-</li>
-<li><p>测试机打开自用AppStore更新最新版<br><img src="https://upload-images.jianshu.io/upload_images/3098437-5282efd6a535c160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="appstore.png"></p>
-</li>
+<h3 id="测试机打开公司版AppStore更新最新版"><a href="#测试机打开公司版AppStore更新最新版" class="headerlink" title="测试机打开公司版AppStore更新最新版"></a>测试机打开公司版AppStore更新最新版</h3><ul>
+<li>公司版 AppStore 读取 keychain 存储的版本信息和 fir 获取的最新版本信息做比对，提醒更新。</li>
 </ul>
-<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ul>
+<p><img src="./appstore.jpeg" width="300" alt="App Home" align="center"></p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
 <li>查看project信息：<code>xcodebuild -list</code></li>
 <li>project需要设置<code>Signing</code>为<code>Automatically manage signing</code></li>
 <li><p>exportOptionPlist: 新建一个plist文件, 里面是一个Dictionary, key-value如下, 都是可选值, 不需要全部填上 :</p>
@@ -605,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#要实现的功能"><span class="nav-number">1.</span> <span class="nav-text">要实现的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">2.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#要实现的功能"><span class="nav-number">1.</span> <span class="nav-text">要实现的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现步骤"><span class="nav-number">2.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新代码"><span class="nav-number">2.1.</span> <span class="nav-text">更新代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcodebuild打包Archive文件"><span class="nav-number">2.2.</span> <span class="nav-text">xcodebuild打包Archive文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出ipa"><span class="nav-number">2.3.</span> <span class="nav-text">导出ipa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传到fir"><span class="nav-number">2.4.</span> <span class="nav-text">上传到fir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试机打开公司版AppStore更新最新版"><span class="nav-number">2.5.</span> <span class="nav-text">测试机打开公司版AppStore更新最新版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
             
 
           </div>
