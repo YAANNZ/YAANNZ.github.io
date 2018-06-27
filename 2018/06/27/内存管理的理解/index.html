@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="所需时间 邓白氏编码申请（个人不需要）：审核需要7个工作日之内，生效需要最多14个工作日。 苹果审核：5个工作日以内。 付款成功：24小时后可以使用。 总估：最短10个工作日（公司版/企业版）。">
+<meta name="description" content="堆和栈堆 (heap)　　 堆存放OC对象类型，又称优先队列，但并不是队列，按照优先级取出元素。一般存放在二级缓存中，生命周期又垃圾回收机制决定，调用这些对象的速度相对会低一些。特性如下：  任意节点的优先级不小于它的子节点 每个节点值都小于或等于它的子节点 主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)  栈 (stack)　　 栈存放非OC对象类型，使用的是一级缓存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="苹果开发账号申请（个人&#x2F;公司&#x2F;企业）">
-<meta property="og:url" content="http://yoursite.com/2018/05/05/苹果开发账号申请（个人-公司-企业）/index.html">
+<meta property="og:title" content="iOS 内存管理的理解">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/内存管理的理解/index.html">
 <meta property="og:site_name" content="Sherlock">
-<meta property="og:description" content="所需时间 邓白氏编码申请（个人不需要）：审核需要7个工作日之内，生效需要最多14个工作日。 苹果审核：5个工作日以内。 付款成功：24小时后可以使用。 总估：最短10个工作日（公司版/企业版）。">
+<meta property="og:description" content="堆和栈堆 (heap)　　 堆存放OC对象类型，又称优先队列，但并不是队列，按照优先级取出元素。一般存放在二级缓存中，生命周期又垃圾回收机制决定，调用这些对象的速度相对会低一些。特性如下：  任意节点的优先级不小于它的子节点 每个节点值都小于或等于它的子节点 主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)  栈 (stack)　　 栈存放非OC对象类型，使用的是一级缓存">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-26T01:39:23.660Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/27/内存管理的理解/NSObject-Foundation-Cocoa.jpeg">
+<meta property="og:updated_time" content="2018-06-27T10:06:40.623Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="苹果开发账号申请（个人&#x2F;公司&#x2F;企业）">
-<meta name="twitter:description" content="所需时间 邓白氏编码申请（个人不需要）：审核需要7个工作日之内，生效需要最多14个工作日。 苹果审核：5个工作日以内。 付款成功：24小时后可以使用。 总估：最短10个工作日（公司版/企业版）。">
+<meta name="twitter:title" content="iOS 内存管理的理解">
+<meta name="twitter:description" content="堆和栈堆 (heap)　　 堆存放OC对象类型，又称优先队列，但并不是队列，按照优先级取出元素。一般存放在二级缓存中，生命周期又垃圾回收机制决定，调用这些对象的速度相对会低一些。特性如下：  任意节点的优先级不小于它的子节点 每个节点值都小于或等于它的子节点 主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)  栈 (stack)　　 栈存放非OC对象类型，使用的是一级缓存">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/27/内存管理的理解/NSObject-Foundation-Cocoa.jpeg">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/05/苹果开发账号申请（个人-公司-企业）/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/内存管理的理解/"/>
 
 
 
 
 
-  <title>苹果开发账号申请（个人/公司/企业） | Sherlock</title>
+  <title>iOS 内存管理的理解 | Sherlock</title>
   
 
 
@@ -252,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/05/苹果开发账号申请（个人-公司-企业）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/内存管理的理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sherlock">
@@ -269,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">苹果开发账号申请（个人/公司/企业）</h1>
+          <h1 class="post-title" itemprop="name headline">iOS 内存管理的理解</h1>
         
 
         <div class="post-meta">
@@ -281,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-05T23:02:08+08:00">
-                2018-05-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T17:47:31+08:00">
+                2018-06-27
               </time>
             
 
@@ -341,36 +343,38 @@
       
 
       
-        <h2 id="所需时间"><a href="#所需时间" class="headerlink" title="所需时间"></a>所需时间</h2><ul>
-<li>邓白氏编码申请（个人不需要）：审核需要7个工作日之内，生效需要最多14个工作日。</li>
-<li>苹果审核：5个工作日以内。</li>
-<li>付款成功：24小时后可以使用。</li>
-<li><strong>总估</strong>：最短10个工作日（公司版/企业版）。<a id="more"></a>
+        <h2 id="堆和栈"><a href="#堆和栈" class="headerlink" title="堆和栈"></a>堆和栈</h2><h3 id="堆-heap"><a href="#堆-heap" class="headerlink" title="堆 (heap)"></a>堆 (heap)</h3><p><em>　　</em> 堆存放OC对象类型，又称优先队列，但并不是队列，按照优先级取出元素。一般存放在二级缓存中，生命周期又垃圾回收机制决定，调用这些对象的速度相对会低一些。特性如下：</p>
+<ul>
+<li>任意节点的优先级不小于它的子节点</li>
+<li>每个节点值都小于或等于它的子节点</li>
+<li>主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)</li>
+</ul>
+<h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈 (stack)"></a>栈 (stack)</h3><p><em>　　</em> 栈存放非OC对象类型，使用的是一级缓存，通常被调用时处于存储空间中，调用完毕立即释放，一般有操作系统自动分配释放存储空间。只有一端可以操作，遵从先进后出、后进先出的原则，只支持三种操作：<code>top</code>、<code>pop</code>、<code>push</code>。</p>
+<ul>
+<li>top：查看 top frame</li>
+<li>pop：将新元素加入栈成为新的 top frame</li>
+<li>push：取出 top frame</li>
+</ul>
+<a id="more"></a>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p><em>　　</em> 引用计数是计算机编程语言中的一种内存管理技术，是指将资源（可以是对象、内存或磁盘空间等等）的被引用次数保存起来，当被引用次数变为零时就将其释放的过程。使用引用计数技术可以实现自动资源管理的目的。同时引用计数还可以指使用引用计数技术回收未使用资源的垃圾回收算法。 当创建一个对象的实例并在堆上申请内存时，对象的引用计数就为1，在其他对象中需要持有这个对象时，就需要把该对象的引用计数加1，需要释放一个对象时，就将该对象的引用计数减1，直至对象的引用计数为0，对象的内存会被立刻释放。<br><em>　　</em> 在 Objective-C 中有 <code>alloc</code>、<code>new</code>、<code>copy</code>、<code>mutableCopy</code>等方法<strong>生成并持有</strong>对象，给对象引用计数加一；retain 方法<strong>持有</strong>对象给对象引用计数加一；release方法<strong>释放</strong>对象给对象引用计数减一；dealloc方法<strong>废弃</strong>对象给对象引用计数减一。<br><img src="./NSObject-Foundation-Cocoa.jpeg" width="300" alt="NSObject-Foundation-Cocoa" align="center"></p>
+<h2 id="MRC-和-ARC"><a href="#MRC-和-ARC" class="headerlink" title="MRC 和 ARC"></a>MRC 和 ARC</h2><p><em>　　</em> MRC 和 ARC 都是通过引用计数的方式进行内存管理，MRC (Manual Reference Counting) 表示手动管理引用计数，ARC (Automatic Reference Counting) 表示自动管理引用计数。混编时可以在 <code>Project</code> 里面找到 <code>Build Phases</code>-<code>Compile Sources</code>，给需要混编的文件指定编译器属性，<code>-fobjc-arc</code> 即为该文件使用 ARC，<code>-fno-objc-arc</code> 即为该文件不使用 ARC。编译器在编译时会帮我们自动插入 retain、release、copy、autorelease、autoreleasepool 等。</p>
+<h2 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h2><ul>
+<li>互相引用的对象，要有一个引用为弱引用</li>
+<li><p>block 容易造成循环引用<br><em>　　</em> 对象在 block 的里外要分别用 <code>__weak</code> <code>__strong</code> 修饰。如下，weakSelf是为了解决循环引用 ，strongSelf是为了保证任何情况下self在超出作用域后仍能够使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__weak __typeof(self) weakself = self;</span><br><span class="line">obj.block = ^&#123;</span><br><span class="line">__strong __typeof(weakself) strongself = weakself;</span><br><span class="line"></span><br><span class="line">[strongself updateSomeThing];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>NSTimer</p>
+<blockquote>
+<p><em>　　</em> NSTimer 的 target 持有 self，NSTimer 会造成循环引用，timer 会强引用 target 即 self，一般 self 又会持有 timer 作为属性，这样就造成了循环引用。那么，如果 timer 只作为局部变量，不把 timer 作为属性呢？同样释放不了，因为在加入 runloop 的操作中，timer 被强引用。而 timer 作为局部变量，是无法执行 invalidate 的，所以在 timer 被 invalidate 之前，self也就不会被释放。</p>
+</blockquote>
 </li>
 </ul>
-<h2 id="入口"><a href="#入口" class="headerlink" title="入口"></a>入口</h2><ul>
-<li><a href="https://developer.apple.com/programs/enroll/" target="_blank" rel="noopener">个人/公司版</a></li>
-<li><a href="https://developer.apple.com/programs/enterprise/enroll/" target="_blank" rel="noopener">企业版</a></li>
-<li><a href="https://developer.apple.com/enroll/duns-lookup/#/search" target="_blank" rel="noopener">邓白氏申请</a></li>
+<p><em>　　</em> YYKit 的 <strong>YYWeakProxy</strong> 工具类，解决了这个问题，timer 强应用 YYWeakProxy 对象，YYWeakProxy 对象弱引用 self 同时利用 runtime 进行消息转发。</p>
+<h2 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h2><ul>
+<li>深拷贝：拷贝出新对象和指针。</li>
+<li>浅拷贝：拷贝出新的指针指向原对象，原对象引用计数加一。</li>
 </ul>
-<h2 id="需要的资料"><a href="#需要的资料" class="headerlink" title="需要的资料"></a>需要的资料</h2><ul>
-<li>公司英文名称（例：Beijing <em>xxx</em> Co., Ltd.）</li>
-<li>公司地址</li>
-<li>申请人联系电话</li>
-<li>邮箱</li>
-<li>法人电话（以下邓白氏申请使用）</li>
-<li>公司中文名称（要和营业执照一致）</li>
-<li>营业执照照片</li>
-<li>公司员工人数、主营业务等</li>
-</ul>
-<h2 id="付款"><a href="#付款" class="headerlink" title="付款"></a>付款</h2><ul>
-<li>个人版：<strong>99$</strong>；公司版/企业版：<strong>299$</strong>。</li>
-<li>visa卡、万事达卡。</li>
-</ul>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
-<li>Apple ID等使用到的邮箱尽量是公司后缀邮箱。</li>
-<li>邓白氏编码14个工作日内可以尝试使用3次，3次失败后需要重新申请，14个工作日之后生效再使用更稳妥。</li>
-</ul>
+<p><em>　　</em> 深拷贝与浅拷贝的两个判断原则，执行拷贝的对象是否可变，是 copy 方法还是 mutableCopy 方法，只有不可变对象执行 copy 方法才是浅拷贝。<strong>深拷贝的数组，它的元素依然是浅拷贝。</strong></p>
 
       
     </div>
@@ -395,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/02/shell脚本实现自动化打包发布/" rel="next" title="shell脚本实现自动化打包发布">
-                <i class="fa fa-chevron-left"></i> shell脚本实现自动化打包发布
+              <a href="/2018/06/20/从零开始搭建一个Node服务/" rel="next" title="从零开始搭建一个Node服务">
+                <i class="fa fa-chevron-left"></i> 从零开始搭建一个Node服务
               </a>
             
           </div>
@@ -405,8 +409,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/23/Hexo-github-NexT-更漂亮的博客/" rel="prev" title="Hexo+github+NexT > 更漂亮的博客">
-                Hexo+github+NexT > 更漂亮的博客 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/27/Instrument检测内存泄漏/" rel="prev" title="Instrument 检测内存泄漏">
+                Instrument 检测内存泄漏 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -562,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#所需时间"><span class="nav-number">1.</span> <span class="nav-text">所需时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入口"><span class="nav-number">2.</span> <span class="nav-text">入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要的资料"><span class="nav-number">3.</span> <span class="nav-text">需要的资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#付款"><span class="nav-number">4.</span> <span class="nav-text">付款</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">5.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆和栈"><span class="nav-number">1.</span> <span class="nav-text">堆和栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆-heap"><span class="nav-number">1.1.</span> <span class="nav-text">堆 (heap)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-stack"><span class="nav-number">1.2.</span> <span class="nav-text">栈 (stack)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数"><span class="nav-number">2.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MRC-和-ARC"><span class="nav-number">3.</span> <span class="nav-text">MRC 和 ARC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环引用"><span class="nav-number">4.</span> <span class="nav-text">循环引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深拷贝和浅拷贝"><span class="nav-number">5.</span> <span class="nav-text">深拷贝和浅拷贝</span></a></li></ol></div>
             
 
           </div>

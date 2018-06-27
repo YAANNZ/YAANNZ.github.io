@@ -249,6 +249,312 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/Instrument检测内存泄漏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sherlock">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/27/Instrument检测内存泄漏/" itemprop="url">Instrument 检测内存泄漏</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T18:08:23+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="打开-Instruments"><a href="#打开-Instruments" class="headerlink" title="打开 Instruments"></a>打开 Instruments</h2><ul>
+<li>方法一：Xcode &gt; Open Developer Tool &gt; Instruments</li>
+<li>方法二：Product &gt; Profile</li>
+<li>方法三：如下图
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/27/Instrument检测内存泄漏/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/内存管理的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sherlock">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/27/内存管理的理解/" itemprop="url">iOS 内存管理的理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T17:47:31+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="堆和栈"><a href="#堆和栈" class="headerlink" title="堆和栈"></a>堆和栈</h2><h3 id="堆-heap"><a href="#堆-heap" class="headerlink" title="堆 (heap)"></a>堆 (heap)</h3><p><em>　　</em> 堆存放OC对象类型，又称优先队列，但并不是队列，按照优先级取出元素。一般存放在二级缓存中，生命周期又垃圾回收机制决定，调用这些对象的速度相对会低一些。特性如下：</p>
+<ul>
+<li>任意节点的优先级不小于它的子节点</li>
+<li>每个节点值都小于或等于它的子节点</li>
+<li>主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)</li>
+</ul>
+<h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈 (stack)"></a>栈 (stack)</h3><p><em>　　</em> 栈存放非OC对象类型，使用的是一级缓存，通常被调用时处于存储空间中，调用完毕立即释放，一般有操作系统自动分配释放存储空间。只有一端可以操作，遵从先进后出、后进先出的原则，只支持三种操作：<code>top</code>、<code>pop</code>、<code>push</code>。</p>
+<ul>
+<li>top：查看 top frame</li>
+<li>pop：将新元素加入栈成为新的 top frame</li>
+<li>push：取出 top frame</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/27/内存管理的理解/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/从零开始搭建一个Node服务/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1460,179 +1766,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/shell脚本实现自动化打包发布/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sherlock">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sherlock">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/02/shell脚本实现自动化打包发布/" itemprop="url">shell脚本实现自动化打包发布</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-02T16:53:48+08:00">
-                2018-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h2><ul>
-<li><strong>update</strong>代码</li>
-<li>编译打包<strong>app</strong></li>
-<li>上传到<strong>fir.im</strong></li>
-</ul>
-<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="更新代码"><a href="#更新代码" class="headerlink" title="更新代码"></a>更新代码</h3><blockquote>
-<p><code>cd /Users/xxx/xxx.xcworkspace</code><br><code>git pull</code></p>
-</blockquote>
-<h3 id="xcodebuild打包Archive文件"><a href="#xcodebuild打包Archive文件" class="headerlink" title="xcodebuild打包Archive文件"></a>xcodebuild打包Archive文件</h3><blockquote>
-<p><code>xcodebuild -workspace ${path to *.xcworkspace} -scheme ${scheme} -destination generic/platform=iOS archive -configuration Release ONLY_ACTIVE_ARCH=NO  -archivePath ${export path *.xcarichive}</code></p>
-<ul>
-<li>-workspace 对应<code>xxx.xcworkspace</code></li>
-<li>-scheme 对应 project的<code>scheme</code></li>
-<li>-configuration 对应<code>Debug、Release</code></li>
-<li>-archivePath 对应生成<code>xxx.xcarichive</code>的路径</li>
-</ul>
-</blockquote>
-<h3 id="导出ipa"><a href="#导出ipa" class="headerlink" title="导出ipa"></a>导出ipa</h3><blockquote>
-<p><code>xcodebuild -exportArchive -archivePath ${path to *.xcarchive} -exportPath ${export path to dir} -exportOptionsPlist ${path to export options *.plist}</code></p>
-<ul>
-<li>-archivePath 对应<code>xxx.xcarchive</code>的路径</li>
-<li>-exportPath 对应生成的<code>ipa</code>的路径</li>
-<li>-exportOptionsPlist 对应导出<code>plist</code>格式的配置文件</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/02/shell脚本实现自动化打包发布/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1680,7 +1820,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
