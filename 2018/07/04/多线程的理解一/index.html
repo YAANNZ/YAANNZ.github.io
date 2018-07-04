@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程 维基百科：程序本身只是指令、数据及其组织形式的描述，进程才是程序（那些指令和数据）的真正运行实例。若干进程有可能与同一个程序相关系，且每个进程皆可以同步（循序）或异步（平行）的方式独立运行。  　　在iOS系统中，一个APP的运行实体代表一个进程。一个进程有独立的内存空间、系统资源、端口等。在进程中可以生成多个线程、这些线程可以共享进程中的资源。 进程间通信　　iOS 中大概有 7 种进程间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程的理解（一）">
+<meta property="og:url" content="http://yoursite.com/2018/07/04/多线程的理解一/index.html">
+<meta property="og:site_name" content="Sherlock">
+<meta property="og:description" content="进程 维基百科：程序本身只是指令、数据及其组织形式的描述，进程才是程序（那些指令和数据）的真正运行实例。若干进程有可能与同一个程序相关系，且每个进程皆可以同步（循序）或异步（平行）的方式独立运行。  　　在iOS系统中，一个APP的运行实体代表一个进程。一个进程有独立的内存空间、系统资源、端口等。在进程中可以生成多个线程、这些线程可以共享进程中的资源。 进程间通信　　iOS 中大概有 7 种进程间">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-04T06:54:27.358Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程的理解（一）">
+<meta name="twitter:description" content="进程 维基百科：程序本身只是指令、数据及其组织形式的描述，进程才是程序（那些指令和数据）的真正运行实例。若干进程有可能与同一个程序相关系，且每个进程皆可以同步（循序）或异步（平行）的方式独立运行。  　　在iOS系统中，一个APP的运行实体代表一个进程。一个进程有独立的内存空间、系统资源、端口等。在进程中可以生成多个线程、这些线程可以共享进程中的资源。 进程间通信　　iOS 中大概有 7 种进程间">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/04/多线程的理解一/"/>
+
+
+
+
+
+  <title>多线程的理解（一） | Sherlock</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sherlock</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/04/多线程的理解一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sherlock">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多线程的理解（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-04T14:50:19+08:00">
+                2018-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><blockquote>
+<p>维基百科：程序本身只是指令、数据及其组织形式的描述，进程才是程序（那些指令和数据）的真正运行实例。若干进程有可能与同一个程序相关系，且每个进程皆可以同步（循序）或异步（平行）的方式独立运行。</p>
+</blockquote>
+<p><em>　　</em>在iOS系统中，一个APP的运行实体代表一个进程。一个进程有独立的内存空间、系统资源、端口等。在进程中可以生成多个线程、这些线程可以共享进程中的资源。</p>
+<h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><p><em>　　</em>iOS 中大概有 7 种进程间通信的方式。<br><a id="more"></a></p>
+<h3 id="Port"><a href="#Port" class="headerlink" title="Port"></a>Port</h3><p><em>　　</em>在 App1 内启动服务，App2 通过 ip 和 port 来访问，进行通信，不过此种方法需要两个 App 的进程都在存活状态，而且 iOS 系统只会给每个TCP在后台600秒的网络通信时间，600秒后 APP 会进入休眠状态。此处推荐一个 App 内搭建服务的框架 <a href="https://www.jianshu.com/p/67058679efce" target="_blank" rel="noopener">CocoaHTTPServer</a>。</p>
+<h3 id="URL-Scheme"><a href="#URL-Scheme" class="headerlink" title="URL Scheme"></a>URL Scheme</h3><p><em>　　</em>在利用 URL Scheme 打开 App 的时候，可以传递参数。打开 App 之前需要调用  <code>canOpenURL:</code> 方法查询，App 是否存在，但是从 iOS 9 开始需要在源 App 的 info.plist 中配置  <code>LSApplicationQueriesSchemes</code> 才可以调用<code>canOpenURL:</code> 方法，<code>OpenURL:</code> 方法不受影响。</p>
+<h3 id="Keychain"><a href="#Keychain" class="headerlink" title="Keychain"></a>Keychain</h3><p><em>　　</em>iOS 系统的 Keychain 是一个安全的存储容器，它本质上就是一个sqllite数据库，它的位置存储在 /private/var/Keychains/keychain-2.db，不过它所保存的所有数据都是经过加密的，可以用来为不同的 App 保存敏感信息，比如用户名，密码等。iOS 系统自己也用 Keychain 来保存 VPN 凭证和 Wi-Fi 密码。它是独立于每个 App 的沙盒之外的，所以即使 App 被删除之后，Keychain 里面的信息依然存在。<br><em>　　</em>基于安全和独立于 App 沙盒的两个特性，Keychain 主要用于给 App 保存登录和身份凭证等敏感信息，这样只要用户登录过，即使用户删除了 App 重新安装也不需要重新登录。<br><em>　　</em>Keychain 用于 App 间通信的一个典型场景就是统一账户登录平台。使用同一个账号平台的多个 App，只要其中一个 App 用户进行了登录，其他 App 就可以实现自动登录不需要用户多次输入账号和密码。一般开放平台都会提供登录SDK，在这个SDK内部就可以把登录相关的信息都写到Keychain中，这样如果多个App都集成了这个SDK，那么就可以实现统一账户登录了。<br><em>　　</em>iOS 9 之后禁止获取 UDID 的 App 上架，可以利用 UUID 存储 keychain 作为唯一的标示， Keychain 的使用比较简单，使用 iOS 系统提供的类 KeychainItemWrapper，并通过 Keychain access groups 就可以在 App 之间共享Keychain中的数据的数据了，也可以使用框架 <a href="https://github.com/soffes/SAMKeychain" target="_blank" rel="noopener">SAMKeychain</a>。</p>
+<h3 id="UIPasteboard"><a href="#UIPasteboard" class="headerlink" title="UIPasteboard"></a>UIPasteboard</h3><p><em>　　</em>UIPasteboard 是剪切板功能，每一个App都可以去访问系统剪切板，而且 iOS 的控件 UITextView、UITextField 、UIWebView，长按就会出现复制、剪切、选中、全选、粘贴等功能，这个就是利用了系统剪切板功能来实现的，所以就能够通过系统剪贴板进行App间的数据传输了。典型的使用场景就是淘宝的淘口令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];</span><br><span class="line">pasteboard.string = @&quot;粘贴板测试文字&quot;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="UIDocumentInteractionController"><a href="#UIDocumentInteractionController" class="headerlink" title="UIDocumentInteractionController"></a>UIDocumentInteractionController</h3><p><em>　　</em><code>UIDocumentInteractionController</code> 主要是用来实现同设备上App之间的共享文档，以及文档预览、打印、发邮件和复制等功能。<code>UIDocumentInteractionController</code> 对象要保证不被销毁，否则会程序报错：<code>&#39;UIDocumentInteractionController has gone away prematurely!&#39;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.documentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@&quot;free_resume&quot; ofType:@&quot;html&quot; inDirectory:@&quot;awesomeResume/free&quot;]]];</span><br><span class="line">self.documentInteractionController.delegate = self;</span><br><span class="line">[self.documentInteractionController presentOpenInMenuFromRect:self.view.bounds inView:self.view animated:YES];</span><br></pre></td></tr></table></figure></p>
+<h3 id="AirDrop-UIActivityViewController"><a href="#AirDrop-UIActivityViewController" class="headerlink" title="AirDrop / UIActivityViewController"></a>AirDrop / UIActivityViewController</h3><p><em>　　</em>通过 <code>UIActivityViewController</code> 的方法可以唤起 AirDrop，进行数据交互，iOS并没有直接提供 AirDrop 的实现接口，上个方法同样也支持 AirDrop 的方式分享数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[@&quot;123&quot;] applicationActivities:nil];</span><br><span class="line">[self presentViewController:controller animated:YES completion:nil];</span><br></pre></td></tr></table></figure></p>
+<h3 id="App-Groups"><a href="#App-Groups" class="headerlink" title="App Groups"></a>App Groups</h3><p><em>　　</em> App Group 用于同一个开发团队开发的 App 之间，共享同一份读写空间，进行数据共享。也可用来实现同一个团队的多个 App 的单点登录。实现细节：<a href="https://www.jianshu.com/p/94d4106b9298" target="_blank" rel="noopener">App之间的数据共享——App Group的配置</a></p>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><blockquote>
+<p>维基百科：<a href="https://link.juejin.im/?target=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%25E7%25BA%25BF%25E7%25A8%258B" target="_blank" rel="noopener">线程</a>（thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。<br>一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user thread）称为线程。</p>
+</blockquote>
+<h2 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h2><p><em>　　</em> 在子线程进行耗时操作，主线程间刷新UI，就是经常见到的线程间通讯场景。线程间通信的方式主要有如下：</p>
+<h3 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h3><p><em>　　</em> NSThread 是经过苹果封装后，并且完全面向对象的。所以你可以直接操控线程对象，非常直观和方便。实际上使用也比较少，使用频率较多的是 GCD 以及 NSOperation。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 子线程耗时操作</span><br><span class="line">[self performSelectorInBackground:@selector(downloadData:) withObject:urlString];</span><br><span class="line"></span><br><span class="line">// 去主线程刷新 UI</span><br><span class="line">[self performSelectorOnMainThread:@selector(updateTextLabel:) withObject:textString waitUntilDone:NO];</span><br><span class="line"></span><br><span class="line">- (void)updateTextLabel:(NSString *)textString</span><br><span class="line">&#123;</span><br><span class="line">    self.textLabel.text = @&quot;test&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h3><p><em>　　</em> GCD（Grand Central Dispatch）伟大的中央调度系统，是苹果为多核并行运算提出的C语言并发技术框架。GCD 会自动利用更多的 CPU 内核。会自动管理线程的生命周期（创建线程，调度任务，销毁线程等）。只需要告诉 GCD 想要如何执行什么任务，不需要编写任何线程管理代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 去主线程刷新 UI</span><br><span class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">    self.textlabel.text = @&quot;test&quot;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h3><p><em>　　</em> NSOperation 是苹果推荐使用的并发技术，相比GCD，NSOperation的使用更加简单，NSOperation的使用常常是配合NSOperationQueue来进行的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 子线程耗时操作</span><br><span class="line">[[[NSOperationQueue alloc] init] addOperationWithBlock:^&#123;</span><br><span class="line">    [self downloadData:urlString];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// 去主线程刷新 UI</span><br><span class="line">[[NSOperationQueue mainQueue] addOperationWithBlock:^&#123;</span><br><span class="line">    self.textLabel.text = @&quot;test&quot;;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><blockquote>
+<p>维基百科：<a href="https://link.juejin.im/?target=https%3A%2F%2Fzh.wikipedia.org%2Fzh-hans%2F%25E7%25BA%25BF%25E7%25A8%258B%25E6%25B1%25A0" target="_blank" rel="noopener">线程池</a>（thread pool）：一种线程使用模式。 线程过多会带来调度开销，进而影响缓存局部性和整体性能。 而线程池维护着多个线程，等待着监督管理者分配可并发执行的任务。 这避免了在处理短时间任务时创建与销毁线程的代价。</p>
+</blockquote>
+<p><em>　　</em> 线程池的执行流程：首先，启动若干数量的线程，并让这些线程处于睡眠状态。然后，当客户端有新的请求时，线程池会唤醒某一个睡眠线程，让它来处理客户端的请求。最后，当请求处理完毕，线程又处于睡眠状态。<strong>所以在并发的时候，同时能有多少线程在跑是有线程池的线程缓存数量决定的。</strong><br><em>　　</em> <code>GCD</code> 和 <code>NSOperation</code> 的线程池都默认存储 64 个线程，而  <code>NSOperation</code> 可以设置 <code>maxConcurrentOperationCount</code> ，但是设置超过 64 没有效果。<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fibireme%2FYYDispatchQueuePool" target="_blank" rel="noopener">YYDispatchQueuePool</a> 支持使用更多线程来进行并发。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/27/Instrument检测内存泄漏/" rel="next" title="Instrument 检测内存泄漏">
+                <i class="fa fa-chevron-left"></i> Instrument 检测内存泄漏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="Sherlock" />
+            
+              <p class="site-author-name" itemprop="name">Sherlock</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YAANNZ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ynzhuw@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/2995680944" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9867373/朱亚男" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hanne.xyz" title="Hanne's Blog" target="_blank">Hanne's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程间通信"><span class="nav-number">2.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Port"><span class="nav-number">2.1.</span> <span class="nav-text">Port</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL-Scheme"><span class="nav-number">2.2.</span> <span class="nav-text">URL Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keychain"><span class="nav-number">2.3.</span> <span class="nav-text">Keychain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIPasteboard"><span class="nav-number">2.4.</span> <span class="nav-text">UIPasteboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIDocumentInteractionController"><span class="nav-number">2.5.</span> <span class="nav-text">UIDocumentInteractionController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AirDrop-UIActivityViewController"><span class="nav-number">2.6.</span> <span class="nav-text">AirDrop / UIActivityViewController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-Groups"><span class="nav-number">2.7.</span> <span class="nav-text">App Groups</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程间通信"><span class="nav-number">4.</span> <span class="nav-text">线程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSThread"><span class="nav-number">4.1.</span> <span class="nav-text">NSThread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD"><span class="nav-number">4.2.</span> <span class="nav-text">GCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSOperation"><span class="nav-number">4.3.</span> <span class="nav-text">NSOperation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">5.</span> <span class="nav-text">线程池</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sherlock</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
