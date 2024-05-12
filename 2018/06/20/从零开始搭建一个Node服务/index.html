@@ -1,37 +1,376 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="需求*　　*为自己的移动端项目PositivePersons搭建完整的Node服务。 用到的工具 Git Sublime Text Express Mongodb  实现步骤安装Node.js 三种安装方式   通过安装包安装。 通过源码编译安装。 在 Linux 下可以通过 yum|apt-get 安装，在 Mac 下可以通过 Homebrew 安装。   测试安装结果12$ node -v$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始搭建一个Node服务">
+<meta property="og:url" content="http://yoursite.com/2018/06/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AANode%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:site_name" content="Sherlock">
+<meta property="og:description" content="需求*　　*为自己的移动端项目PositivePersons搭建完整的Node服务。 用到的工具 Git Sublime Text Express Mongodb  实现步骤安装Node.js 三种安装方式   通过安装包安装。 通过源码编译安装。 在 Linux 下可以通过 yum|apt-get 安装，在 Mac 下可以通过 Homebrew 安装。   测试安装结果12$ node -v$">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-06-20T01:30:45.000Z">
+<meta property="article:modified_time" content="2018-06-26T01:28:35.000Z">
+<meta property="article:author" content="Sherlock">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="http://yoursite.com/2018/06/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AANode%E6%9C%8D%E5%8A%A1/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://yoursite.com/2018/06/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AANode%E6%9C%8D%E5%8A%A1/","path":"2018/06/20/从零开始搭建一个Node服务/","title":"从零开始搭建一个Node服务"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>从零开始搭建一个Node服务 | Sherlock</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sherlock</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am Sherlock</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">用到的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="nav-number">3.1.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94Git"><span class="nav-number">3.2.</span> <span class="nav-text">关联Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96express"><span class="nav-number">3.3.</span> <span class="nav-text">初始化express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F%E5%85%A5%E5%8F%A3"><span class="nav-number">3.4.</span> <span class="nav-text">创建程序入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85supervisor"><span class="nav-number">3.5.</span> <span class="nav-text">安装supervisor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express-Router%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.6.</span> <span class="nav-text">express.Router的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.7.</span> <span class="nav-text">第一个完整的接口</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sherlock"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Sherlock</p>
+  <div class="site-description" itemprop="description">Create, Share, Inspire</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YAANNZ" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YAANNZ" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhuynchn@163.com" title="E-Mail → mailto:zhuynchn@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/2995680944" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;2995680944" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/9867373/%E6%9C%B1%E4%BA%9A%E7%94%B7" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;9867373&#x2F;朱亚男" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://zzzgm.com/" title="https:&#x2F;&#x2F;zzzgm.com" rel="noopener" target="_blank">Sherlock</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AANode%E6%9C%8D%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+      <meta itemprop="description" content="Create, Share, Inspire">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="从零开始搭建一个Node服务 | Sherlock">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零开始搭建一个Node服务
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-06-20 09:30:45" itemprop="dateCreated datePublished" datetime="2018-06-20T09:30:45+08:00">2018-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2018-06-26 09:28:35" itemprop="dateModified" datetime="2018-06-26T09:28:35+08:00">2018-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>*　　*为自己的移动端项目<a href="https://github.com/YAANNZ/PositivePersons">PositivePersons</a>搭建完整的Node服务。</p>
+<h2 id="用到的工具"><a href="#用到的工具" class="headerlink" title="用到的工具"></a>用到的工具</h2><ul>
+<li><strong><a href="https://git-scm.com/">Git</a></strong></li>
+<li><strong><a href="https://www.sublimetext.com/">Sublime Text</a></strong></li>
+<li><strong><a href="http://www.expressjs.com.cn/">Express</a></strong></li>
+<li><strong><a href="https://www.mongodb.com/">Mongodb</a></strong></li>
+</ul>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装<a href="https://nodejs.org/en/">Node.js</a></h3><ol>
+<li>三种安装方式</li>
+</ol>
+<ul>
+<li>通过安装包安装。</li>
+<li>通过源码编译安装。</li>
+<li>在 Linux 下可以通过 yum|apt-get 安装，在 Mac 下可以通过 <a href="http://brew.sh/">Homebrew</a> 安装。</li>
+</ul>
+<ol start="2">
+<li>测试安装结果<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure>
+<span id="more"></span></li>
+</ol>
+<h3 id="关联Git"><a href="#关联Git" class="headerlink" title="关联Git"></a>关联Git</h3><p>由于代码要放在GitHub，所以我在GitHub创建了一个仓库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir PositivePersonsNode</span><br><span class="line">$ cd PositivePersonsNode</span><br><span class="line">$ git init</span><br><span class="line">$ git remote add ppsnode https://github.com/YAANNZ/PositivePersonsNode.git</span><br><span class="line">$ git pull ppsnode master</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化express"><a href="#初始化express" class="headerlink" title="初始化express"></a>初始化express</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm init    // 初始化一个空项目，npm init 有智能的默认选项</span><br><span class="line">$ npm i express --save  // 安装express并添加进依赖</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建程序入口"><a href="#创建程序入口" class="headerlink" title="创建程序入口"></a>创建程序入口</h3><ul>
+<li>新建 index.js 并打开<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch index.js</span><br><span class="line">$ open -sublime index.js</span><br></pre></td></tr></table></figure></li>
+<li>添加如下代码：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">app.get(&#x27;/&#x27;, function (req, res) &#123;</span><br><span class="line">    res.send(&#x27;hello, express&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="安装supervisor"><a href="#安装supervisor" class="headerlink" title="安装supervisor"></a>安装supervisor</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -g supervisor</span><br></pre></td></tr></table></figure>
+<p>使用<code>supervisor --harmony index.js</code>启动程序，而不用<code>node --harmony index.js</code>。supervisor会监听当前目录下 node 和 js 后缀的文件，当文件发生改动时自动重启程序:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ supervisor --harmony index.js    // 启动程序，访问localhost:3000，页面应显示 hello, express。</span><br></pre></td></tr></table></figure>
+
+<h3 id="express-Router的使用"><a href="#express-Router的使用" class="headerlink" title="express.Router的使用"></a>express.Router的使用</h3><p>将所有路由控制函数都放在<code>index.js</code>并不是一个好的选择，这时就需要expres.Router的路由实现方案。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp; mkdir routes</span><br><span class="line">$ cd routes</span><br><span class="line">&amp; touch index.js</span><br><span class="line">$ touch home.js</span><br></pre></td></tr></table></figure>
+<p>代码剥离：</p>
+<ul>
+<li>index.js<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">const indexRouter = require(&#x27;./routes/index&#x27;)</span><br><span class="line">const homeRouter = require(&#x27;./routes/home&#x27;)</span><br><span class="line"></span><br><span class="line">app.use(&#x27;/&#x27;, indexRouter)</span><br><span class="line">app.use(&#x27;/home&#x27;, homeRouter)</span><br><span class="line"></span><br><span class="line">app.listen(3000)</span><br></pre></td></tr></table></figure></li>
+<li>routes&#x2F;index.js<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const router = express.Router()</span><br><span class="line"></span><br><span class="line">router.get(&#x27;/&#x27;, function (req, res) &#123;</span><br><span class="line">    res.send(&#x27;hello, this is root&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = router</span><br></pre></td></tr></table></figure></li>
+<li>routes&#x2F;home.js<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const router = express.Router()</span><br><span class="line"></span><br><span class="line">router.get(&#x27;/&#x27;, function (req, res) &#123;</span><br><span class="line">    res.send(&#x27;hello, this is home&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = router</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="第一个完整的接口"><a href="#第一个完整的接口" class="headerlink" title="第一个完整的接口"></a>第一个完整的接口</h3><p>修改 routes&#x2F;home.js 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const router = express.Router()</span><br><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line"></span><br><span class="line">router.post(&#x27;/allTasks&#x27;, function (req, res) &#123;</span><br><span class="line">    fs.readFile(&#x27;./tempData/allTasks.json&#x27;, function(err, data)&#123;</span><br><span class="line">        res.writeHead(200, &#123;&#x27;Content-Type&#x27;: &#x27;text/html; charset=UTF-8&#x27;&#125;)</span><br><span class="line">        res.end(data)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = router</span><br></pre></td></tr></table></figure>
+<p>fs模块用于对系统文件及目录进行读写操作。模块中所有方法都有同步和异步两种形式。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/06/14/runtime%E7%9A%84%E7%90%86%E8%A7%A3%E4%BA%8C/" rel="prev" title="runtime的理解（二）">
+                  <i class="fa fa-angle-left"></i> runtime的理解（二）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/06/27/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="iOS 内存管理的理解">
+                  iOS 内存管理的理解 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Sherlock</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

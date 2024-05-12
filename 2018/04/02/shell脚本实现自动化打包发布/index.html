@@ -1,37 +1,401 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="要实现的功能 update代码 编译打包app 上传到fir.im  实现步骤更新代码 cd &#x2F;Users&#x2F;xxx&#x2F;xxx.xcworkspacegit pull  xcodebuild打包Archive文件 xcodebuild -workspace $&#123;path to *.xcworkspace&#125; -scheme $&#123;scheme&#125; -destinati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell脚本实现自动化打包发布">
+<meta property="og:url" content="http://yoursite.com/2018/04/02/shell%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83/index.html">
+<meta property="og:site_name" content="Sherlock">
+<meta property="og:description" content="要实现的功能 update代码 编译打包app 上传到fir.im  实现步骤更新代码 cd &#x2F;Users&#x2F;xxx&#x2F;xxx.xcworkspacegit pull  xcodebuild打包Archive文件 xcodebuild -workspace $&#123;path to *.xcworkspace&#125; -scheme $&#123;scheme&#125; -destinati">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/04/02/shell%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83/appstore.jpeg">
+<meta property="article:published_time" content="2018-04-02T08:53:48.000Z">
+<meta property="article:modified_time" content="2018-06-26T02:04:26.000Z">
+<meta property="article:author" content="Sherlock">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/02/shell%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83/appstore.jpeg">
 
 
-{% block content %}
+<link rel="canonical" href="http://yoursite.com/2018/04/02/shell%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://yoursite.com/2018/04/02/shell%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83/","path":"2018/04/02/shell脚本实现自动化打包发布/","title":"shell脚本实现自动化打包发布"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>shell脚本实现自动化打包发布 | Sherlock</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sherlock</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am Sherlock</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">要实现的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">更新代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcodebuild%E6%89%93%E5%8C%85Archive%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">xcodebuild打包Archive文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BAipa"><span class="nav-number">2.3.</span> <span class="nav-text">导出ipa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E5%88%B0fir"><span class="nav-number">2.4.</span> <span class="nav-text">上传到fir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%9C%BA%E6%89%93%E5%BC%80%E5%85%AC%E5%8F%B8%E7%89%88AppStore%E6%9B%B4%E6%96%B0%E6%9C%80%E6%96%B0%E7%89%88"><span class="nav-number">2.5.</span> <span class="nav-text">测试机打开公司版AppStore更新最新版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sherlock"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Sherlock</p>
+  <div class="site-description" itemprop="description">Create, Share, Inspire</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YAANNZ" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YAANNZ" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhuynchn@163.com" title="E-Mail → mailto:zhuynchn@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/2995680944" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;2995680944" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/9867373/%E6%9C%B1%E4%BA%9A%E7%94%B7" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;9867373&#x2F;朱亚男" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://zzzgm.com/" title="https:&#x2F;&#x2F;zzzgm.com" rel="noopener" target="_blank">Sherlock</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/shell%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Sherlock">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sherlock">
+      <meta itemprop="description" content="Create, Share, Inspire">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="shell脚本实现自动化打包发布 | Sherlock">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          shell脚本实现自动化打包发布
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-04-02 16:53:48" itemprop="dateCreated datePublished" datetime="2018-04-02T16:53:48+08:00">2018-04-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2018-06-26 10:04:26" itemprop="dateModified" datetime="2018-06-26T10:04:26+08:00">2018-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h2><ul>
+<li><strong>update</strong>代码</li>
+<li>编译打包<strong>app</strong></li>
+<li>上传到<strong>fir.im</strong></li>
+</ul>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="更新代码"><a href="#更新代码" class="headerlink" title="更新代码"></a>更新代码</h3><blockquote>
+<p><code>cd /Users/xxx/xxx.xcworkspace</code><br><code>git pull</code></p>
+</blockquote>
+<h3 id="xcodebuild打包Archive文件"><a href="#xcodebuild打包Archive文件" class="headerlink" title="xcodebuild打包Archive文件"></a>xcodebuild打包Archive文件</h3><blockquote>
+<p><code>xcodebuild -workspace $&#123;path to *.xcworkspace&#125; -scheme $&#123;scheme&#125; -destination generic/platform=iOS archive -configuration Release ONLY_ACTIVE_ARCH=NO  -archivePath $&#123;export path *.xcarichive&#125;</code></p>
+<ul>
+<li>-workspace 对应<code>xxx.xcworkspace</code></li>
+<li>-scheme 对应 project的<code>scheme</code></li>
+<li>-configuration 对应<code>Debug、Release</code></li>
+<li>-archivePath 对应生成<code>xxx.xcarichive</code>的路径</li>
+</ul>
+</blockquote>
+<h3 id="导出ipa"><a href="#导出ipa" class="headerlink" title="导出ipa"></a>导出ipa</h3><blockquote>
+<p><code>xcodebuild -exportArchive -archivePath $&#123;path to *.xcarchive&#125; -exportPath $&#123;export path to dir&#125; -exportOptionsPlist $&#123;path to export options *.plist&#125;</code></p>
+<ul>
+<li>-archivePath 对应<code>xxx.xcarchive</code>的路径</li>
+<li>-exportPath 对应生成的<code>ipa</code>的路径</li>
+<li>-exportOptionsPlist 对应导出<code>plist</code>格式的配置文件</li>
+</ul>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="上传到fir"><a href="#上传到fir" class="headerlink" title="上传到fir"></a>上传到fir</h3><blockquote>
+<p><code>fir login -T $&#123;API token&#125;</code><br><code> fir publish $&#123;path to xxx.ipa&#125;</code></p>
+</blockquote>
+<h3 id="测试机打开公司版AppStore更新最新版"><a href="#测试机打开公司版AppStore更新最新版" class="headerlink" title="测试机打开公司版AppStore更新最新版"></a>测试机打开公司版AppStore更新最新版</h3><ul>
+<li>公司版 AppStore 读取 keychain 存储的版本信息和 fir 获取的最新版本信息做比对，提醒更新。</li>
+</ul>
+<img src="./appstore.jpeg" width = "300" alt="App Home" align=center />
+
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
+<li><p>查看project信息：<code>xcodebuild -list</code></p>
+</li>
+<li><p>project需要设置<code>Signing</code>为<code>Automatically manage signing</code></p>
+</li>
+<li><p>exportOptionPlist: 新建一个plist文件, 里面是一个Dictionary, key-value如下, 都是可选值, 不需要全部填上 :</p>
+<blockquote>
+<ol>
+<li><p>compileBitcode: Bool<br>For non-App Store exports, should Xcode re-compile the app from bitcode? Defaults to YES.</p>
+</li>
+<li><p>embedOnDemandResourcesAssetPacksInBundle : Bool<br>For non-App Store exports, if the app uses On Demand Resources and this is YES, asset packs are embedded in the app bundle so that the app can be tested without a server to host asset packs. Defaults to YES unless onDemandResourcesAssetPacksBaseURL is specified.</p>
+</li>
+<li><p>iCloudContainerEnvironment<br>For non-App Store exports, if the app is using CloudKit, this configures the “com.apple.developer.icloud-container-environment” entitlement. Available options: Development and Production. Defaults to Development.</p>
+</li>
+<li><p>manifest : Dictionary<br>For non-App Store exports, users can download your app over the web by opening your distribution manifest file in a web browser. To generate a distribution manifest, the value of this key should be a dictionary with three sub-keys: appURL, displayImageURL, fullSizeImageURL. The additional sub-key assetPackManifestURL is required when using on demand resources.</p>
+</li>
+<li><p>method : String<br>Describes how Xcode should export the archive. Available options: app-store, ad-hoc, package, enterprise, development, and developer-id. The list of options varies based on the type of archive. Defaults to development.</p>
+</li>
+<li><p>onDemandResourcesAssetPacksBaseURL : String<br>For non-App Store exports, if the app uses On Demand Resources and embedOnDemandResourcesAssetPacksInBundle isn’t YES, this should be a base URL specifying where asset packs are going to be hosted. This configures the app to download asset packs from the specified URL.</p>
+</li>
+<li><p>teamID : String<br>The Developer Portal team to use for this export. Defaults to the team used to build the archive.</p>
+</li>
+<li><p>thinning : String<br>For non-App Store exports, should Xcode thin the package for one or more device variants? Available options: (Xcode produces a non-thinned universal app), (Xcode produces a universal app and all available thinned variants), or a model identifier for a specific device (e.g. “iPhone7,1”). Defaults to .</p>
+</li>
+<li><p>uploadBitcode : Bool<br>For App Store exports, should the package include bitcode? Defaults to YES.</p>
+</li>
+<li><p>uploadSymbols : Bool<br>For App Store exports, should the package include symbols? Defaults to YES.</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>github地址：<a href="https://github.com/YAANNZ/AutoPackage-ipa">YAANNZ</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/05/05/%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%B4%A6%E5%8F%B7%E7%94%B3%E8%AF%B7%EF%BC%88%E4%B8%AA%E4%BA%BA-%E5%85%AC%E5%8F%B8-%E4%BC%81%E4%B8%9A%EF%BC%89/" rel="next" title="苹果开发账号申请（个人/公司/企业）">
+                  苹果开发账号申请（个人/公司/企业） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Sherlock</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
